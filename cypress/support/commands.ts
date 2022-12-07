@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import selectors from './properties/dom-elements';
+import selectors from './dom-elements/selectors';
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
