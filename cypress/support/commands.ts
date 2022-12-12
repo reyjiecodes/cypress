@@ -1,5 +1,8 @@
 /// <reference types="cypress" />
-import selectors from './dom-elements/selectors';
+import commandSelectors from './command-dom-elements/command-selectors';
+import PatientsPage from '../page-objects/patients-page';
+
+const patientsPOM = new PatientsPage();
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
@@ -54,25 +57,62 @@ declare global {
 				password: string
 			}
 		}
+		interface Chainable<Subject> {
+			menuNavigate(menu:string): void;
+		}
+		interface Chainable<Subject> {
+			searchPatient(patient:string): void;
+		}
+    interface Chainable<Subject> {
+			navPatientDetails( patient:string): void;
+		}
+    interface Chainable<Subject> {
+			navPatientTabs(tab:string,patient:string): void;
+		}
 	}
 }
 
 Cypress.Commands.add(`enterEmail`, (email:string) => {
-	cy.get(selectors.email).type(email);
-	cy.get(selectors.continueLoginBtn).click();
+	cy.get(commandSelectors.email).type(email);
+	cy.get(commandSelectors.continueLoginBtn).click();
 });
 
 Cypress.Commands.add(`memberLogin`, (params) => {
-	cy.visit(`https://uitest.test.medirecords.com/dev-07-12-2022/login.html#/login`);
 	cy.fixture(`/properties/uitest-chrome.json`).then((testData)=>{
 		const email:string = testData.airclaim[params.inputs.email];
 		const username:string = testData.airclaim[params.inputs.username];
 		const password:string = testData.airclaim[params.inputs.password];
 		cy.enterEmail(email);
-		cy.get(selectors.username).type(username);
-		cy.get(selectors.password).type(password);
-		cy.get(selectors.submitLoginBtn).click();
+		cy.get(commandSelectors.username).type(username);
+		cy.get(commandSelectors.password).type(password);
+		cy.get(commandSelectors.submitLoginBtn).click();
 	});
 });
+
+Cypress.Commands.add(`menuNavigate`,(menu:string)=>{
+	cy.get(commandSelectors[menu]).click();
+});
+
+Cypress.Commands.add(`navPatientDetails`, (patient:string)=>{
+  cy.fixture(`/element-pattern/PatientDetails.json`).as(`selector`);
+  cy.get(`@selector`).then((selector:any)=>{
+    cy.menuNavigate(`patients`);
+    patientsPOM.searchPatient(patient,commandSelectors.patientSearchID);
+    cy.contains(`patient`).click();
+    cy.url().should(`include`,`/patients/`);
+    cy.contains(selector.domElements.patientStatus.id).should(`exist`);
+  });
+
+});
+
+Cypress.Commands.add(`navPatientTabs`, (tab:string, patient:string, )=>{
+  cy.navPatientDetails(patient);
+  cy.fixture(`/element-pattern/${tab.replace(/\s+/g, '')}.json`).as(`selector`);
+  cy.get(`@selector`).then((selector:any)=>{
+    cy.get(selector.domElements[tab].id).should(`exist`).click();
+  });
+});
+
+
 
 export {};

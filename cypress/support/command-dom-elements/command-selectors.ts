@@ -6,5 +6,10 @@ export default {
   continueLoginBtn: "#scr-reg-00-continue-login-saml",
   submitLoginBtn: "#scr-reg-00-submit-login",
 
+  //Menu selectors
+  patients: "#navigation-menu-patients",
+
+  //Patients
+  patientSearchID: "#scr-pat-01-search",
   
 }

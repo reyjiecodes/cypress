@@ -30,10 +30,10 @@ export default defineConfig({
   chromeWebSecurity: false,
   e2e: {
     specPattern: '**/*.feature',
+    // supportFile: true,
     setupNodeEvents,
     baseUrl: 'https://uitest.test.medirecords.com/',
     experimentalSessionAndOrigin: true,
-    retries: 1,
   },
   env: {
   },
