@@ -55,8 +55,7 @@ Feature: Account Air Claiming - General air claim immunization in non-QLD practi
     Given I am ON "Menu"
     When I click "billing menu"
     And I click "acir menu" 
-    And I "Acir Not Transmitted Page" is shown
-    And I click "Acir Completed button"
+    And I click "Acir Completed button" at "Acir Not Transmitted Page" 
     Then I should be ON "Acir Completed Page"
 
   Scenario Outline: Search Completed item

@@ -5,7 +5,7 @@ import PatientsPage from '../../../page-objects/patients-page';
 const patientsPOM = new PatientsPage();
 
 When(/^I search "([^"]*)" patients name$/, (patient:string)=>{
-  cy.intercept(`POST`, `https://api-mrapp-uitest.test.medirecords.com/rest/secured/api/patients/find`).as(`dataGrid`);
+  cy.intercept(`POST`, `/rest/secured/api/patients/find`).as(`dataGrid`);
 	cy.wait(`@dataGrid`, {timeout:40000}).its(`response.statusCode`).should(`eq`, 200);
 	cy.wait(2000);
 	cy.get(`@selector`).then((selector:any)=>{
@@ -34,5 +34,24 @@ When(/^I click "([^"]*)"$/, (tabs:string)=>{
   });
 });
 
+When(/^I select "([^"]*)" in "([^"]*)" from the popup$/, (vacine:string, vacineList:string, testData:any)=>{
+	testData = testData.rowsHash();
 
+});
+
+When(/^I enter 1 in "([^"]*)"$/, ()=>{
+
+});
+
+When(/^I enter "([^"]*)" in "([^"]*)"$/, ()=>{
+
+});
+
+When(/^I click "([^"]*)" at "([^"]*)"$/, ()=>{
+
+});
+
+When(/^I enter$/, ()=>{
+
+});
 

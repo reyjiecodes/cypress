@@ -9,3 +9,6 @@ Then(/^I should be ON "([^"]*)"$/, (page:string)=>{
     });
 });
 
+Then(/^I should EXPECT$/, ()=>{
+
+});
