@@ -61,13 +61,19 @@ declare global {
 			menuNavigate(menu:string): void;
 		}
 		interface Chainable<Subject> {
-			searchPatient(patient:string): void;
+			tabNavigate(menu:string): void;
+		}
+		interface Chainable<Subject> {
+			sectionNavigate(menu:string): void;
 		}
     interface Chainable<Subject> {
-			navPatientDetails( patient:string): void;
+			navPatientDetails( page:string, patient:string): void;
 		}
     interface Chainable<Subject> {
-			navPatientTabs(tab:string,patient:string): void;
+			navClinicalTab(tab:string,patient:string): void;
+		}
+	interface Chainable<Subject> {
+		navImmunisationSection(section:string, patient:string): void;
 		}
 	}
 }
@@ -90,29 +96,60 @@ Cypress.Commands.add(`memberLogin`, (params) => {
 });
 
 Cypress.Commands.add(`menuNavigate`,(menu:string)=>{
-	cy.get(commandSelectors[menu]).click();
+	if(menu === 'Patients'){
+		cy.fixture(`/element-pattern/Patients.json`).as(`pageSelector`);
+	}else if(menu === 'Home'){
+		cy.fixture(`/element-pattern/Home.json`).as(`pageSelector`);
+	}
+	cy.get(commandSelectors[menu.toLowerCase()]).click();
 });
 
-Cypress.Commands.add(`navPatientDetails`, (patient:string)=>{
-  cy.fixture(`/element-pattern/PatientDetails.json`).as(`selector`);
-  cy.get(`@selector`).then((selector:any)=>{
-    cy.menuNavigate(`patients`);
-    patientsPOM.searchPatient(patient,commandSelectors.patientSearchID);
-    cy.contains(`patient`).click();
-    cy.url().should(`include`,`/patients/`);
-    cy.contains(selector.domElements.patientStatus.id).should(`exist`);
+Cypress.Commands.add(`tabNavigate`, (tab:string)=>{
+	if(tab ==='Clinical'){
+		cy.fixture(`/element-pattern/PatientsClinicalTab.json`).as(`tabSelector`);
+	}
+	cy.get(commandSelectors[`${tab.toLowerCase()}Tab`]).click();
+});
+
+Cypress.Commands.add(`sectionNavigate`, (section:string)=>{
+	if(section ==='Immunisations'){
+		cy.fixture(`/element-pattern/PatientImmunisations.json`).as(`sectionSelector`);
+	}
+	cy.get(commandSelectors[section.toLowerCase()]).click();
+});
+
+Cypress.Commands.add(`navPatientDetails`, (page:string, patient:string)=>{
+  const arr = page.split(' ');
+  cy.menuNavigate(arr[0]);
+  cy.intercept(`POST`, `/rest/secured/api/patients/find`).as(`dataGrid`);
+	cy.wait(`@dataGrid`, {timeout:40000}).its(`response.statusCode`).should(`eq`, 200);
+	cy.wait(2000);
+	cy.get(`@pageSelector`).then((selector:any)=>{
+    const searchSelector = selector.domElements.search.id;
+    patientsPOM.searchPatient(patient,searchSelector);
+  })
+  //click patient from Patient grid
+  cy.contains(patient).click();
+  cy.url().should(`include`,`/patients/`);
+});
+
+Cypress.Commands.add(`navClinicalTab`, (tab:string, patient:string, )=>{
+  const arr = tab.split(' ');
+  cy.navPatientDetails(`Patients`,patient);
+  cy.tabNavigate(arr[0]);
+  cy.get(`@tabSelector`).then((selector:any)=>{
+  cy.url().should(`include`, selector.urlExtension );
   });
-
 });
 
-Cypress.Commands.add(`navPatientTabs`, (tab:string, patient:string, )=>{
-  cy.navPatientDetails(patient);
-  cy.fixture(`/element-pattern/${tab.replace(/\s+/g, '')}.json`).as(`selector`);
-  cy.get(`@selector`).then((selector:any)=>{
-    cy.get(selector.domElements[tab].id).should(`exist`).click();
-  });
+Cypress.Commands.add(`navImmunisationSection`, (section: string, patient:string)=>{
+  cy.navPatientDetails(`Patients`,patient);
+  cy.tabNavigate(`Clinical`);
+  cy.intercept(`POST`, `schedules`).as(`clinicalTab`);
+	cy.wait(`@clinicalTab`, {timeout:40000}).its(`response.statusCode`).should(`eq`, 200);
+	cy.wait(2000);
+  cy.sectionNavigate(`Immunisations`);
 });
-
 
 
 export {};

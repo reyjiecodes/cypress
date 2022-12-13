@@ -1216,9 +1216,9 @@
             "id": "scr-pat-details-08-adf-mec-subclassification"
         },
 
-        "Patient clinical tab":
+        "Patients Clinical Tab":
         {
-            "id": "scr-pat-layout-01-patient-clinical-tab"
+            "id": "#scr-pat-layout-01-patient-clinical-tab"
         },
 
         "Patient Summary tab":

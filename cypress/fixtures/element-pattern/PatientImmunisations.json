@@ -16,7 +16,7 @@
 
         "New Immunisation button":
         {
-            "id": "scr-pat-clinical-06-new-immunisations"
+            "id": "#scr-pat-clinical-06-new-immunisations"
         },
 
         "Show Child Schedule button":
@@ -66,7 +66,7 @@
 
         "Vaccine list":
         {
-            "id": "scr-pat-clinical-06-new-immunisation-list-view"
+            "id": "#scr-pat-clinical-06-new-immunisation-list-view"
         },
 
         "Immunisation Date":
@@ -106,7 +106,7 @@
 
         "Immunisation sequence":
         {
-            "id": "scr-pat-clinical-06-new-immunisation-sequence"
+            "id": "#scr-pat-clinical-06-new-immunisation-sequence"
         },
 
         "Immunisation route IM radio button":
@@ -131,7 +131,7 @@
 
         "Immunisation batch number":
         {
-            "id": "scr-pat-clinical-06-new-immunisation-batch-number"
+            "id": "#scr-pat-clinical-06-new-immunisation-batch-number"
         },
 
         "Immunisation store button":
@@ -174,7 +174,7 @@
             "xpath": "//*[@id='MRPopupWindowscr-pat-clinical-06-new-immunisation']/descendant::button[normalize-space(text())='Cancel']"
         },
 
-        "Immunisation save button":
+        "Immunisation save":
         {
             "xpath": "//*[@id='MRPopupWindowscr-pat-clinical-06-new-immunisation']/descendant::button[normalize-space(text())='Save']"
         },
