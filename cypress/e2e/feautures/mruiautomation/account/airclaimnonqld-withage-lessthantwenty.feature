@@ -1,5 +1,7 @@
-Feature: Account Air Claiming - General air claim immunization in non-QLD practice and patient age < 20 yo
+@regression
 
+Feature: Account Air Claiming - General air claim immunization in non-QLD practice and patient age < 20 yo
+  
 	Background:Login to MRAPP
 		Given I login to MRAPP using:
 		| username | airclaim_username_value_2    |
@@ -33,10 +35,10 @@ Feature: Account Air Claiming - General air claim immunization in non-QLD practi
   Scenario Outline: Go to Patient Immunisation tab
     Given I am on "Clinical Tab" with "<patientName>"
     When I click "Immunisations" section
-    Then I should be ON "Patient Immunisations" 
+    Then I should be on "Patient Immunisations" page
     Examples:
       |  patientName     		  |
-      |  Mullaly, Elijah      |	
+      |  Mullaly, Elijah      |
 
   Scenario Outline: Create immunisation
     Given I am on "Patient Immunisations" section of "<patientName>"

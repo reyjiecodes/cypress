@@ -112,10 +112,13 @@ Cypress.Commands.add(`tabNavigate`, (tab:string)=>{
 });
 
 Cypress.Commands.add(`sectionNavigate`, (section:string)=>{
+	cy.intercept(`POST`, `schedules`).as(`clinicalSectionUIStatus`);
+	cy.wait(`@clinicalSectionUIStatus`, {timeout:40000}).its(`response.statusCode`).should(`eq`, 200);
 	if(section ==='Immunisations'){
 		cy.fixture(`/element-pattern/PatientImmunisations.json`).as(`sectionSelector`);
 	}
 	cy.get(commandSelectors[section.toLowerCase()]).click();
+
 });
 
 Cypress.Commands.add(`navPatientDetails`, (page:string, patient:string)=>{

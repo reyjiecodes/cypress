@@ -4,14 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:regression": "npx cypress open --env tags=@regression"
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true,
     "stepDefinitions": [
       "cypress/e2e/step-definitions/**/*.{js,ts}",
       "cypress/e2e/[filepath].{js,ts}"
-    ]
+    ],
+    "json": {
+      "enabled": true,
+      "formatter": "cucumber-json-formatter"
+    }
   },
   "repository": {
     "type": "git",

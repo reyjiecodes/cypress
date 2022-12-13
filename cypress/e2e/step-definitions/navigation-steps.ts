@@ -3,7 +3,7 @@ import { Given } from '@badeball/cypress-cucumber-preprocessor';
 
 //Login to MRAPP
 Given(/^I login to MRAPP using:$/, (testData:any)=>{
-  cy.visit(`/dev-13-12-2022/login.html#/login`);
+  cy.visit(`/dev-12-12-2022/login.html#/login`);
   // cy.visit(`/`);
   const data = testData.rowsHash();
   cy.memberLogin({inputs:data});
