@@ -22,7 +22,7 @@ jobs:
   install:
     defaults:
       run:
-        working-directory: ./test
+        working-directory: ./k6
     runs-on: ubuntu-latest
     container: cypress/browsers:node16.16.0-chrome107-ff107-edge
     steps:
