@@ -7,7 +7,7 @@ jobs:
   install:
     defaults:
       run:
-        working-directory: ./test
+        working-directory: test
     runs-on: ubuntu-latest
     container: cypress/browsers:node16.16.0-chrome107-ff107-edge
     steps:
@@ -15,9 +15,11 @@ jobs:
       - uses: cypress-io/github-action@v5
         with:
           runTests: false
-          path: ./test/node_modules
   lint:
     needs: install
+    defaults:
+      run:
+        working-directory: test
     runs-on: ubuntu-latest
     container: cypress/browsers:node16.16.0-chrome107-ff107-edge
     steps:
@@ -25,7 +27,6 @@ jobs:
       - uses: cypress-io/github-action@v5
         with:
           runTests: false
-          path: ./test/node_modules
       - run: npm run lint
   # mrtest:
   #   defaults:
