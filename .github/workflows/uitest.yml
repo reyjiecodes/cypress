@@ -3,7 +3,7 @@ name: uitest
 on: 
   workflow_dispatch:
     inputs:
-      tags:
+      test-tags:
         type: choice
         required: true
         description: 'Select specific tag to be tested'
@@ -19,99 +19,57 @@ on:
         - https://uitest.test.medirecords.com/
 
 
-# jobs:
-#   install:
-#     runs-on: ubuntu-latest
-#     container: cypress/browsers:node14.16.0-chrome90-ff88
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: cypress-io/github-action@v2
-#         with:
-#           runTests: false
-#   lint:
-#     needs: install
-#     runs-on: ubuntu-latest
-#     container: cypress/browsers:node14.16.0-chrome90-ff88
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: cypress-io/github-action@v2
-#         with:
-#           runTests: false
-#       - run: npm run lint
-#   web:
-#     needs: lint
-#     runs-on: ubuntu-latest
-#     strategy:
-#       fail-fast: false
-#       matrix:
-#         browser: [chrome]
-#     container: cypress/browsers:node14.16.0-chrome90-ff88
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: cypress-io/github-action@v2
-#         with:
-#           runTests: false
-#       - uses: cypress-io/github-action@v2
-#         with:
-#           install: false
-#           wait-on: 'https://qa-staging.aonewallet.com/'
-#           browser: ${{ matrix.browser }}
-#           record: true
-#           parallel: false
-#           tag: 'Web Regression Test'
-#           spec: ./cypress/integration/web/**
-#           config: "baseUrl=https://qa-staging.aonewallet.com/"
-#         env:
-#           CYPRESS_RECORD_KEY: ${{secrets.RECORD_KEY}}
-#           GITHUB_TOKEN: ${{secrets.PROJECT_ID}}
-#       - uses: actions/upload-artifact@v2
-#         with:
-#           name: test-report
-#           path: TestReport
-#       - uses: actions/upload-artifact@v2
-#         with:
-#           name: cypress-videos
-#           path: cypress/vidoes
-#       - uses: actions/upload-artifact@v2
-#         with:
-#           name: cypress-screenshots
-#           path: cypress/screenshots
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node16.16.0-chrome107-ff107-edge
+    steps:
+      - uses: actions/checkout@v2
+      - uses: cypress-io/github-action@v2
+        with:
+          runTests: false
+  lint:
+    needs: install
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node16.16.0-chrome107-ff107-edge
+    steps:
+      - uses: actions/checkout@v2
+      - uses: cypress-io/github-action@v2
+        with:
+          runTests: false
+      - run: npm run lint
+  mrtest:
+    needs: lint
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chrome]
+    container: cypress/browsers:node16.16.0-chrome107-ff107-edge
+    steps:
+      - uses: actions/checkout@v2
+      - uses: cypress-io/github-action@v2
+        with:
+          runTests: false
+      - uses: cypress-io/github-action@v2
+        with:
+          install: false
+          wait-on: '${{input.environment}}'
+          browser: ${{ matrix.browser }}
+          record: true
+          parallel: false
+          env: tags=@{{input.test-tags}}
+          config: "baseUrl=${{input.environment}}"
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     name: test-report
+      #     path: test-reports
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     name: cypress-videos
+      #     path: cypress/vidoes
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     name: cypress-screenshots
+      #     path: cypress/screenshots
 
-#   web-monorepo:
-#     needs: lint
-#     runs-on: ubuntu-latest
-#     strategy:
-#       fail-fast: false
-#       matrix:
-#         browser: [chrome]
-#     container: cypress/browsers:node14.16.0-chrome90-ff88
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: cypress-io/github-action@v2
-#         with:
-#           runTests: false
-#       - uses: cypress-io/github-action@v2
-#         with:
-#           install: false
-#           wait-on: 'https://qa-next-staging.aonewallet.com/'
-#           browser: ${{ matrix.browser }}
-#           record: true
-#           parallel: false
-#           tag: 'Web Regression Test'
-#           spec: ./cypress/integration/web/**
-#           config: "baseUrl=https://qa-next-staging.aonewallet.com/"
-#         env:
-#           CYPRESS_RECORD_KEY: ${{secrets.RECORD_KEY}}
-#           GITHUB_TOKEN: ${{secrets.PROJECT_ID}}
-#       - uses: actions/upload-artifact@v2
-#         with:
-#           name: test-report
-#           path: TestReport
-#       - uses: actions/upload-artifact@v2
-#         with:
-#           name: cypress-videos
-#           path: cypress/vidoes
-#       - uses: actions/upload-artifact@v2
-#         with:
-#           name: cypress-screenshots
-#           path: cypress/screenshots
