@@ -18,6 +18,8 @@ on:
         - https://app.test.medirecords.com/
         - https://uitest.test.medirecords.com/
 
+
+jobs:
   mrtest:
     runs-on: ubuntu-latest
     strategy:
