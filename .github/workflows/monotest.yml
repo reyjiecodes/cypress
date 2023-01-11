@@ -1,7 +1,22 @@
 ---
-name: monotest
+name: monorepo
 on: 
   workflow_dispatch:
+    inputs:
+      test-tags:
+        type: choice
+        required: true
+        description: 'Select test tag'
+        options:
+        - regression
+        - letter-template
+      environment:
+        type: choice
+        required: true
+        description: 'Select test environment'
+        options:
+        - https://app.test.medirecords.com/
+        - https://uitest.test.medirecords.com/
 
 jobs:
   install:
