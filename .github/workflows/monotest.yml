@@ -28,36 +28,36 @@ jobs:
         with:
           runTests: false
       - run: npm run lint
-  # mrtest:
-  #   defaults:
-  #     run:
-  #       working-directory: ./test
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       browser: [chrome]
-  #   container: cypress/browsers:node16.16.0-chrome107-ff107-edge
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: cypress-io/github-action@v5
-  #       with:
-  #         runTests: false
-  #     - uses: cypress-io/github-action@v5
-  #       with:
-  #         install: false
-  #         wait-on: '${{inputs.environment}}'
-  #         browser: ${{ matrix.browser }}
-  #         record: false
-  #         parallel: false
-  #         config: "baseUrl=${{inputs.environment}}"
-  #         env: tags=@${{inputs.test-tags}}
-  #     - uses: actions/upload-artifact@v3
-  #       with:
-  #         name: cucumber-reports
-  #         path: test/cypress/cucumber-report
-  #     - uses: actions/upload-artifact@v3
-  #       if: failure()
-  #       with:
-  #         name: cypress-screenshots
-  #         path: test/cypress/screenshots
+  mrtest:
+    defaults:
+      run:
+        working-directory: test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chrome]
+    container: cypress/browsers:node16.16.0-chrome107-ff107-edge
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cypress-io/github-action@v5
+        with:
+          runTests: false
+      - uses: cypress-io/github-action@v5
+        with:
+          install: false
+          wait-on: '${{inputs.environment}}'
+          browser: ${{ matrix.browser }}
+          record: false
+          parallel: false
+          config: "baseUrl=${{inputs.environment}}"
+          env: tags=@${{inputs.test-tags}}
+      - uses: actions/upload-artifact@v3
+        with:
+          name: cucumber-reports
+          path: test/cypress/cucumber-report
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: test/cypress/screenshots
