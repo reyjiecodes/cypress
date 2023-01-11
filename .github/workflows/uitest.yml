@@ -18,17 +18,6 @@ on:
         - https://app.test.medirecords.com/
         - https://uitest.test.medirecords.com/
 
-
-jobs:
-  install:
-    runs-on: ubuntu-latest
-    container: cypress/browsers:node16.16.0-chrome107-ff107-edge
-    steps:
-      - uses: actions/checkout@v3
-      - uses: cypress-io/github-action@v5
-        with:
-          runTests: false
-
   mrtest:
     runs-on: ubuntu-latest
     strategy:
@@ -46,7 +35,7 @@ jobs:
           install: false
           wait-on: '${{inputs.environment}}'
           browser: ${{ matrix.browser }}
-          record: true
+          record: false
           parallel: false
           env: tags=@{{inputs.test-tags}}
           config: "baseUrl=${{inputs.environment}}"
