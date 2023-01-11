@@ -44,6 +44,7 @@ jobs:
           runTests: false
       - run: npm run lint
   mrtest:
+    needs: lint
     defaults:
       run:
         working-directory: test
