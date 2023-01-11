@@ -39,7 +39,8 @@ jobs:
           browser: ${{ matrix.browser }}
           record: false
           parallel: false
-          env: tags=@{{inputs.test-tags}}
+          env: 
+            TAGS: ${{inputs.test-tags}}
           config: "baseUrl=${{inputs.environment}}"
       - uses: actions/upload-artifact@v2
         with:
