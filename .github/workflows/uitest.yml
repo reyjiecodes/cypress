@@ -28,7 +28,7 @@ jobs:
       - uses: cypress-io/github-action@v2
         with:
           runTests: false
-          
+
   mrtest:
     runs-on: ubuntu-latest
     strategy:
@@ -44,12 +44,12 @@ jobs:
       - uses: cypress-io/github-action@v2
         with:
           install: false
-          wait-on: '${{input.environment}}'
+          wait-on: '${{inputs.environment}}'
           browser: ${{ matrix.browser }}
           record: true
           parallel: false
-          env: tags=@{{input.test-tags}}
-          config: "baseUrl=${{input.environment}}"
+          env: tags=@{{inputs.test-tags}}
+          config: "baseUrl=${{inputs.environment}}"
       # - uses: actions/upload-artifact@v2
       #   with:
       #     name: test-report
