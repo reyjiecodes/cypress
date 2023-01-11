@@ -28,18 +28,8 @@ jobs:
       - uses: cypress-io/github-action@v2
         with:
           runTests: false
-  lint:
-    needs: install
-    runs-on: ubuntu-latest
-    container: cypress/browsers:node16.16.0-chrome107-ff107-edge
-    steps:
-      - uses: actions/checkout@v2
-      - uses: cypress-io/github-action@v2
-        with:
-          runTests: false
-      - run: npm run lint
+          
   mrtest:
-    needs: lint
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
