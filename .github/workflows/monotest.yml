@@ -1,5 +1,5 @@
 ---
-name: uitest
+name: monotest
 on: 
   workflow_dispatch:
     inputs:
