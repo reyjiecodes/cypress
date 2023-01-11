@@ -2,21 +2,6 @@
 name: monotest
 on: 
   workflow_dispatch:
-    inputs:
-      test-tags:
-        type: choice
-        required: true
-        description: 'Select test tag'
-        options:
-        - regression
-        - letter-template
-      environment:
-        type: choice
-        required: true
-        description: 'Select test environment'
-        options:
-        - https://app.test.medirecords.com/
-        - https://uitest.test.medirecords.com/
 
 jobs:
   install:
@@ -31,16 +16,17 @@ jobs:
         with:
           runTests: false
           path: ./test/node_modules
-  # lint:
-  #   needs: install
-  #   runs-on: ubuntu-latest
-  #   container: cypress/browsers:node16.16.0-chrome107-ff107-edge
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: cypress-io/github-action@v5
-  #       with:
-  #         runTests: false
-  #     - run: npm run lint
+  lint:
+    needs: install
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node16.16.0-chrome107-ff107-edge
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cypress-io/github-action@v5
+        with:
+          runTests: false
+          path: ./test/node_modules
+      - run: npm run lint
   # mrtest:
   #   defaults:
   #     run:
