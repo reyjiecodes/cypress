@@ -39,9 +39,10 @@ jobs:
           browser: ${{ matrix.browser }}
           record: false
           parallel: false
-          env:
-            CYPRESS_TAGS: ${{inputs.test-tags}}
           config: "baseUrl=${{inputs.environment}}"
+        env:
+          CYPRESS_TAGS: ${{inputs.test-tags}}
+
       # - uses: actions/upload-artifact@v2
       #   with:
       #     name: test-report
