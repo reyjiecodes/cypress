@@ -41,16 +41,16 @@ jobs:
           parallel: false
           env: tags=@{{inputs.test-tags}}
           config: "baseUrl=${{inputs.environment}}"
-      # - uses: actions/upload-artifact@v2
-      #   with:
-      #     name: test-report
-      #     path: test-reports
-      # - uses: actions/upload-artifact@v2
-      #   with:
-      #     name: cypress-videos
-      #     path: cypress/vidoes
-      # - uses: actions/upload-artifact@v2
-      #   with:
-      #     name: cypress-screenshots
-      #     path: cypress/screenshots
+      - uses: actions/upload-artifact@v2
+        with:
+          name: test-report
+          path: test-reports
+      - uses: actions/upload-artifact@v2
+        with:
+          name: cypress-videos
+          path: cypress/vidoes
+      - uses: actions/upload-artifact@v2
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
 
