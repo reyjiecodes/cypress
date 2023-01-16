@@ -19,7 +19,7 @@ on:
         - https://uitest.test.medirecords.com/
 
 defaults:
-  run:
+  with:
     working-directory: test     
 
 jobs:
@@ -30,7 +30,6 @@ jobs:
       - uses: actions/checkout@v3
       - uses: cypress-io/github-action@v5
         with:
-          working-directory: test
           runTests: false
   lint:
     needs: install
@@ -40,7 +39,6 @@ jobs:
       - uses: actions/checkout@v3
       - uses: cypress-io/github-action@v5
         with:
-          working-directory: test
           runTests: false
       - run: npm run lint
   mrtest:
@@ -55,11 +53,9 @@ jobs:
       - uses: actions/checkout@v3
       - uses: cypress-io/github-action@v5
         with:
-          working-directory: test
           runTests: false
       - uses: cypress-io/github-action@v5
         with:
-          working-directory: test
           install: false
           wait-on: '${{inputs.environment}}'
           browser: ${{ matrix.browser }}
