@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:regression": "npx cypress run --env tags=@regression"
+    "test:regression": "npx cypress run --env tags=@regression",
+    "make-report": "node generate-cucumber-reporter.js"
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true,
@@ -14,7 +15,7 @@
     ],
     "json": {
       "enabled": true,
-      "formatter": "cucumber-json-formatter",
+      "formatter": "./jsonFormatter/cucumber-json-formatter",
       "output": "cypress/cucumber-json/cucumber-report.json"
     }
   },
