@@ -1,8 +1,6 @@
 ---
 name: uitest
 on:
-  schedule:
-    - cron: '15 0,18 * * 0-5'
   workflow_dispatch:
     inputs:
       test-tags:
