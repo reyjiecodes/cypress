@@ -1,14 +1,11 @@
 ---
 name: uitest
-on:
-  schedule:
-    - cron: '40 5 * * 1-5'
+on: 
   workflow_dispatch:
     inputs:
       test-tags:
         type: choice
         required: true
-        default: 'regression'
         description: 'Select specific tag to be tested'
         options:
         - regression
@@ -16,34 +13,33 @@ on:
       environment:
         type: choice
         required: true
-        default: 'https://uitest.test.medirecords.com/'
         description: 'Select test environment'
         options:
         - https://app.test.medirecords.com/
         - https://uitest.test.medirecords.com/
 
+
 jobs:
-  install:
+  mrtest:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chrome]
     container: cypress/browsers:node16.16.0-chrome107-ff107-edge
     steps:
       - uses: actions/checkout@v3
-      matrix:
-        browser: [chrome]
-      - uses: actions/checkout@v3
       - uses: cypress-io/github-action@v5
         with:
-          working-directory: test
           runTests: false
       - uses: cypress-io/github-action@v5
         with:
-          working-directory: test
           install: false
-          wait-on: '${{github.events.inputs.environment}}'
+          wait-on: '${{inputs.environment}}'
           browser: ${{ matrix.browser }}
           record: false
           parallel: false
-          config: "baseUrl=${{github.events.inputs.environment}}"
+          config: "baseUrl=${{inputs.environment}}"
           env: tags=@${{inputs.test-tags}}
 
       # - uses: actions/upload-artifact@v2
@@ -58,4 +54,3 @@ jobs:
       #   with:
       #     name: cypress-screenshots
       #     path: cypress/screenshots
-
