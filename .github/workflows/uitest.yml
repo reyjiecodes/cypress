@@ -4,24 +4,6 @@ on:
   schedule:
     - cron: '40 5 * * 1-5'
   workflow_dispatch:
-    inputs:
-      test-tags:
-        type: choice
-        required: true
-        default: 'regression'
-        description: 'Select specific tag to be tested'
-        options:
-        - regression
-        - letter-template
-      environment:
-        type: choice
-        required: true
-        default: 'https://uitest.test.medirecords.com/'
-        description: 'Select test environment'
-        options:
-        - https://app.test.medirecords.com/
-        - https://uitest.test.medirecords.com/
-
 
 jobs:
   mrtest:
@@ -39,12 +21,12 @@ jobs:
       - uses: cypress-io/github-action@v5
         with:
           install: false
-          wait-on: "${{inputs.environment || 'https://uitest.test.medirecords.com/' }}"
+          wait-on: "https://uitest.test.medirecords.com/"
           browser: ${{ matrix.browser }}
           record: false
           parallel: false
-          config: "baseUrl=${{inputs.environment || 'https://uitest.test.medirecords.com/'}}"
-          env: tags=@${{inputs.test-tags || 'regression'}}
+          config: "baseUrl=https://uitest.test.medirecords.com/"
+          env: tags=@regression
 
       # - uses: actions/upload-artifact@v2
       #   with:
