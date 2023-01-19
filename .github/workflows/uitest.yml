@@ -22,12 +22,15 @@ on:
         - https://app.test.medirecords.com/
         - https://uitest.test.medirecords.com/
 
-
 jobs:
-  mrtest:
+  install:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    container: cypress/browsers:node16.16.0-chrome107-ff107-edge
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cypress-io/github-action@v5
+        with:
+          runTests: false
       matrix:
         browser: [chrome]
     container: cypress/browsers:node16.16.0-chrome107-ff107-edge
@@ -35,16 +38,18 @@ jobs:
       - uses: actions/checkout@v3
       - uses: cypress-io/github-action@v5
         with:
+          working-directory: test
           runTests: false
       - uses: cypress-io/github-action@v5
         with:
+          working-directory: test
           install: false
-          wait-on: "${{github.events.inputs.environment }}"
+          wait-on: '${{github.events.inputs.environment}}'
           browser: ${{ matrix.browser }}
           record: false
           parallel: false
-          config: "baseUrl=${{ github.events.inputs.environment  }}"
-          env: tags=@${{github.events.inputs.test-tags  }}
+          config: "baseUrl=${{github.events.inputs.environment}}"
+          env: tags=@${{inputs.test-tags}}
 
       # - uses: actions/upload-artifact@v2
       #   with:
