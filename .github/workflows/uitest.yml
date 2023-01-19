@@ -35,12 +35,12 @@ jobs:
       - uses: cypress-io/github-action@v5
         with:
           install: false
-          wait-on: '${{inputs.environment }}'
+          wait-on: '${{github.events.inputs.environment }}'
           browser: ${{ matrix.browser }}
           record: false
           parallel: false
-          config: "baseUrl=${{ inputs.environment }}"
-          env: tags=@${{inputs.test-tags }}
+          config: "baseUrl=${{ github.events.inputs.environment }}"
+          env: tags=@${{github.events.inputs.test-tags }}
 
       # - uses: actions/upload-artifact@v2
       #   with:
