@@ -28,10 +28,11 @@ jobs:
           config: "baseUrl=https://uitest.test.medirecords.com/"
           env: tags=@regression
 
-      # - uses: actions/upload-artifact@v2
-      #   with:
-      #     name: test-report
-      #     path: test-reports
+      - uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: test-report
+          path: test-reports
       # - uses: actions/upload-artifact@v2
       #   with:
       #     name: cypress-videos
