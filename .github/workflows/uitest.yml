@@ -39,11 +39,11 @@ jobs:
       - uses: cypress-io/github-action@v5
         with:
           install: false
-          wait-on: '${{github.events.inputs.environment }}'
+          wait-on: "${{github.events.inputs.environment || 'https://uitest.test.medirecords.com/' }}"
           browser: ${{ matrix.browser }}
           record: false
           parallel: false
-          config: "baseUrl=${{ github.events.inputs.environment }}"
+          config: "baseUrl=${{ github.events.inputs.environment || 'https://uitest.test.medirecords.com/' }}"
           env: tags=@${{github.events.inputs.test-tags || 'regression' }}
 
       # - uses: actions/upload-artifact@v2
