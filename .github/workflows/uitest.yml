@@ -44,7 +44,7 @@ jobs:
           record: false
           parallel: false
           config: "baseUrl=${{ github.events.inputs.environment }}"
-          env: tags=@${{github.events.inputs.test-tags }}
+          env: tags=@${{github.events.inputs.test-tags || 'regression' }}
 
       # - uses: actions/upload-artifact@v2
       #   with:
