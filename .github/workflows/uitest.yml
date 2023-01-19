@@ -28,13 +28,8 @@ jobs:
     container: cypress/browsers:node16.16.0-chrome107-ff107-edge
     steps:
       - uses: actions/checkout@v3
-      - uses: cypress-io/github-action@v5
-        with:
-          runTests: false
       matrix:
         browser: [chrome]
-    container: cypress/browsers:node16.16.0-chrome107-ff107-edge
-    steps:
       - uses: actions/checkout@v3
       - uses: cypress-io/github-action@v5
         with:
