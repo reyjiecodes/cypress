@@ -6,7 +6,6 @@ on:
       test-tags:
         type: choice
         required: true
-        default: 'regression'
         description: 'Select specific tag to be tested'
         options:
         - regression
@@ -14,7 +13,6 @@ on:
       environment:
         type: choice
         required: true
-        default: 'https://uitest.test.medirecords.com/'
         description: 'Select test environment'
         options:
         - https://app.test.medirecords.com/
