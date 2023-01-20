@@ -21,7 +21,7 @@ jobs:
       - name: Set current date as env variable
         run: echo "NOW=$(date +'%d-%m-%YT%H:%M:%S')" >> $GITHUB_ENV
       - name: Echo current date
-        run: echo $NOW $GITHUB_REF_NAME # Gives "2022-12-11T01:42:20"
+        run: echo $NOW $GITHUB_REPOSITORY # Gives "2022-12-11T01:42:20"
 
       - uses: cypress-io/github-action@v5
         with:
