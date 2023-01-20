@@ -18,6 +18,11 @@ jobs:
       - uses: cypress-io/github-action@v5
         with:
           runTests: false
+      - name: "Get current date"
+        run:  |
+          echo "builddate=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+        id: version  # this is used on variable path
+      - name: ${{steps.version.outputs.buildate}}
       - uses: cypress-io/github-action@v5
         with:
           install: false
@@ -35,7 +40,6 @@ jobs:
       - uses: actions/upload-artifact@v2
         if: ${{ always() }}
         with:
-          working-directory: test
           name: ${{steps.version.outputs.buildate}}
           path: test-reports
 
