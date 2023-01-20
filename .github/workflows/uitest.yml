@@ -19,9 +19,9 @@ jobs:
         with:
           runTests: false
       - name: Set current date as env variable
-        run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+        run: echo "NOW=$(date +'%d-%m-%YT%H:%M:%S')" >> $GITHUB_ENV
       - name: Echo current date
-        run: echo $NOW # Gives "2022-12-11T01:42:20"
+        run: echo $NOW @GITHUB_REF_NAME # Gives "2022-12-11T01:42:20"
 
       - uses: cypress-io/github-action@v5
         with:
@@ -31,7 +31,6 @@ jobs:
           record: false
           parallel: false
           config: "baseUrl=https://uitest.test.medirecords.com/"
-          run:  echo $NOW
       - uses: actions/upload-artifact@v2
         if: ${{ always() }}
         with:
