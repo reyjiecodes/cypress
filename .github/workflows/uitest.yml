@@ -22,7 +22,7 @@ jobs:
         run:  |
           echo "builddate=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
         id: version  # this is used on variable path
-        
+
       - uses: cypress-io/github-action@v5
         with:
           install: false
@@ -31,7 +31,7 @@ jobs:
           record: false
           parallel: false
           config: "baseUrl=https://uitest.test.medirecords.com/"
-          env: tags=@regression
+          env: ${{steps.version.outputs.buildate}}
       - name: "Get current date"
         run:  |
           echo "builddate=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
