@@ -31,7 +31,7 @@ jobs:
           record: false
           parallel: false
           config: "baseUrl=https://uitest.test.medirecords.com/"
-      - name: $NOW
+          run:  echo $NOW
       - uses: actions/upload-artifact@v2
         if: ${{ always() }}
         with:
