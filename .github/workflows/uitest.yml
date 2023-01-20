@@ -32,10 +32,6 @@ jobs:
           parallel: false
           config: "baseUrl=https://uitest.test.medirecords.com/"
           env: ${{steps.version.outputs.buildate}}
-      - name: "Get current date"
-        run:  |
-          echo "builddate=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-        id: version  # this is used on variable path
 
       - uses: actions/upload-artifact@v2
         if: ${{ always() }}
