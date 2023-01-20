@@ -22,7 +22,7 @@ jobs:
         run:  |
           echo "builddate=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
         id: version  # this is used on variable path
-      - name: "${{steps.version.outputs.buildate}}"
+        
       - uses: cypress-io/github-action@v5
         with:
           install: false
