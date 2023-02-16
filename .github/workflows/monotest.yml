@@ -80,4 +80,5 @@ jobs:
           working-directory: test
           path: test/package.json
       - name: Echo package.json
+        if: ${{ always() }}
         run: echo "${{ steps.package.outputs.content }}"
