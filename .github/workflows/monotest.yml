@@ -71,3 +71,12 @@ jobs:
           working-directory: test
           name: cucumber-reports
           path: test/cypress/cucumber-report
+      
+      - name: Read package.json
+        id: package
+        uses: juliangruber/read-file-action@v1
+        with:
+          working-directory: test
+          path: test/package.json
+      - name: Echo package.json
+        run: echo "${{ steps.package.outputs.content }}"
