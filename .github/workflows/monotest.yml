@@ -73,6 +73,7 @@ jobs:
           path: test/cypress/cucumber-report
       
       - name: Read package.json
+        if: ${{ always() }}
         id: package
         uses: juliangruber/read-file-action@v1
         with:
