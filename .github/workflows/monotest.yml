@@ -81,4 +81,4 @@ jobs:
           path: test/package.json
       - name: Echo package.json
         if: ${{ always() }}
-        run: echo "${{ steps.package.outputs.content }}"
+        run: echo "${{ fromJson(steps.package.outputs.content).scripts.lint }}"
