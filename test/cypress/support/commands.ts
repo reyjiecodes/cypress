@@ -1,5 +1,3 @@
-<<<<<<< HEAD:test/steps/sample.ts
-=======
 /// <reference types="cypress" />
 // ***********************************************
 // This example commands.ts shows you how to
@@ -37,4 +35,3 @@
 //     }
 //   }
 // }
->>>>>>> main:test/cypress/support/commands.ts
