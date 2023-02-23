@@ -15,7 +15,6 @@ permissions:
 
 jobs:
   lint:
-    needs: install
     runs-on: ubuntu-latest
     container: cypress/browsers:node16.16.0-chrome107-ff107-edge
     steps:
