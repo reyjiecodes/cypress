@@ -9,10 +9,10 @@ Feature: Account Air Claiming - General air claim immunization in non-QLD practi
 		| password | airclaim_password_value   	  |
     Then I should be successfully login
 
-	# Scenario: Go to Patient Details Page
-	# 	Given I am ON "Menu"
-	# 	When I click "Patients" menu
-	# 	Then I should be on "Patients" page
+	Scenario: Go to Patient Details Page
+		Given I am ON "Menu"
+		When I click "Patients" menu
+		Then I should be on "Patients" page
 
   # Scenario Outline: Go to Patient Details page
 	# 	Given I am ON "Patients" page
