@@ -1,2 +1,2 @@
 /// <reference types="cypress" />
-import chai from "chai";
+import chai from 'chai';
