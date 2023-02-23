@@ -2,7 +2,7 @@
 import { When } from '@badeball/cypress-cucumber-preprocessor';
 import PatientsPage from '../../../page-objects/patients-page';
 
-const patientsPOM = new PatientsPage();
+const patientsPOM = new PatientsPage() ;
 
 When(/^I search "([^"]*)" patients name$/, (patient:string)=>{
   cy.intercept(`POST`, `/rest/secured/api/patients/find`).as(`dataGrid`);
